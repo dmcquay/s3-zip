@@ -22,21 +22,21 @@ s3Zip.archive = function (opts, folder, files) {
 s3Zip.archiveStream = function (stream) {
   var archive = archiver('zip');
   archive.on('error', function (err) {
-    console.log('archive error', err);
+    // console.log('archive error', err);
     throw err;
   });
   stream
    .on('data', function (file) {
       // console.log(file.data.toString());
      if(file.path[file.path.length - 1] == '/'){
-       console.log('don\'t append to zip', file.path);
+       // console.log('don\'t append to zip', file.path);
        return;
      }
-     console.log('append to zip', file.path);
+     // console.log('append to zip', file.path);
      archive.append(file.data, { name: file.path });
    })
    .on('end', function () {
-     console.log('end -> finalize');
+     // console.log('end -> finalize');
      archive.finalize();
    });
 
